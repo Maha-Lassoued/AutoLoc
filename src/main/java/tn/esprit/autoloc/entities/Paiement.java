@@ -1,7 +1,9 @@
-package tn.esprit.autoloc.entity;
+package tn.esprit.autoloc.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import tn.esprit.autoloc.enumeration.ModePaiement;
+
 import java.time.LocalDate;
 
 @Entity
@@ -11,17 +13,17 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Paiement {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idPaiement;
 
     private Double montant;
 
-    @Column(name = "date_paiement")
     private LocalDate datePaiement;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "mode_paiement")
     private ModePaiement mode;
+    @ManyToOne
+    @JoinColumn(name = "contrat_id")
+    private Contrat contrat;
 }
